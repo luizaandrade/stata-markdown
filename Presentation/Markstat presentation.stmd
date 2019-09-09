@@ -1,0 +1,534 @@
+```{s/}
+	qui sysuse auto, clear
+
+	qui eststo reg1 : reg price headroom
+	qui eststo reg2 : reg price headroom trunk
+	qui eststo reg3 : reg price headroom trunk foreign
+	
+	qui count
+	local models `r(N)'
+
+	cap drop make_*
+	qui split make, gen(make_)
+	qui unique make_1
+	local makes `r(unique)'
+
+	qui count if foreign == 1
+	local foreign `r(N)'
+
+	qui count if foreign == 0
+	local domestic `r(N)'
+```
+
+# Outline
+
+ 1. Dynamic documents 
+ 1. `markdown` and `markstat`
+ 1. `markstat` installation
+ 1. Including console output in documents
+ 1. Including graphs in documents
+ 1. Including tables in documents
+ 1. Including inline code in documents
+ 1. References and resources
+
+# Introduction
+
+ + What is a dynamic document?
+ 
+ In the context of this presentation, what we call a *dynamic document* is a 
+ document that contain both text and Stata outputs, where the outputs are updated
+ automatically every time the script is run.
+ 
+ 
+# Introduction
+ 
+ + Why use dynamic documents?
+ 
+ Most tools for dynamic documents are created with *literate data analysis* in mind,
+ where code and documentation being produced together to increase research transparency.
+ 
+ 
+# Introduction
+
+When to use dynamic documents?
+
+ + Include text and outputs in the same document
+ + Better for simple documents, that don't require a lot of formatting
+ + Include code in a document
+ + Quickly visualize formatted tables
+ 
+# Introduction
+
+Pros:
+
+ + Save time spent on copying and pasting or switching software
+ + Best option to include (and run) code in a document
+ 
+Cons:
+
+ + Error messages may not be super clear (specially when using LaTeX)
+ + Harder to include detailed formatting
+ + No syntax highlighting for text (in Markdown or TeX)
+ 
+# Introduction
+
+ + There are a handful of options for dynamic documents in Stata
+ + You can find a review of different options [in this link](https://www.stata.com/meeting/oceania16/slides/rising-oceania16.pdf)
+ + For this presentation, we will use [`markstat`](https://data.princeton.edu/stata/markdown/gettingStarted), as I believe it's the most general and user friendly
+ + At the end of this presentation, you can find some material on the different tools for dynamic documents in Stata
+
+# Introduction
+
+**`markstat`**
+
+ + Stata command created by German Rodriguez
+ + Allows users to create and compile and Stata markdown file combining Stata code and markdown text
+ + Saves the outputs to PDF, word, HTML and beamer
+ 
+ 
+# Introduction
+
+**`markstat`**
+
+   1. Reads the Stata markdown file
+   1. Separates (*tangles*) markdown and Stata code 
+   1. Runs each of them separately
+   1. Puts their outputs back together (*weaves*) into a single document in the format you choose
+
+   
+# Introduction
+
+[**`markdown`**](https://daringfireball.net/projects/markdown/syntax)
+	
+ + Lightweight markup language
+ + Designed to be easily readable
+ + We won't go into details about markdown in this session, but some resources are listed in the end of this presentation
+ + This session's material includes a cheatsheet with everything you need to know to complete today's exercises
+
+# Get the material
+
+1. Go to the [training repository](https://github.com/luizaandrade/stata-markdown)
+1. Click **`Clone or download`**
+1. If you have GitHub desktop installed, clone it to your GitHub folder
+1. If you prefer to skip that step, just download it as a `.zip` file
+ 
+# Installation
+
+Install the necessary programs
+	
+ 1. [pandoc](https://pandoc.org/installing.html)
+ 1. [TeX/LaTeX](https://miktex.org/download)
+ 
+# Installation
+
+ Find out where the programs are installed
+
+ + On Windows: type `where pdflatex` and `where pandoc` on the command line
+ + On Mac or Linux: open `terminal` and type `which pdflatex` and `which pandoc`
+
+# Installation
+
+1. Go to the session folder you just downloaded
+1. Go to the `Stata markdown` folder
+1. Open `Master.do`
+
+# Installation
+
+![master](img/master.png){width="75%"}\
+
+
+# Installation
+
+1. Paste the location of pdflatex to the line that starts with `whereis pdflatex`
+1. Paste the location of pandoc to the line that starts with `whereis pandoc`
+1. Make sure all the locals in `PART 0` are equal to 1
+1. Run `Master.do`
+
+
+# `markstat`  {.fragile}
+
+The command that creates the final document is `markstat`
+
+~~~
+markstat using filename,
+    [pdf docx slides beamer mathjax
+	 bibliography strict nodo nor keep]
+~~~
+
+
+# `markstat`
+
+### Exercise 1: 
+
+Test different output formats for `Stata markdown template` by specifying on master:
+
+1. `markstat using "${reusable_analytics}/Stata markdown template", pdf`
+
+1. `markstat using "${reusable_analytics}/Stata markdown template", docx`
+
+1. `markstat using "${reusable_analytics}/Stata markdown template", slides`
+
+1. `markstat using "${reusable_analytics}/Stata markdown template", beamer`
+
+
+# `markstat`
+
+Here are some notes on Exercise 1:
+
+* Go to [`markstat` website](https://data.princeton.edu/stata/markdown/presentations) to see how to change the slides theme
+
+* On beamer, slides with Stata code or ouput need to be in the fragile style. It can be set like this:
+
+~~~
+		# Slide title {.fragile}
+~~~	    
+
+
+# `markstat`
+
+In some systems, you will not be able to replace the PDF if it's open. There are two possible solutions:
+
+ + Close the PDF file before running `markstat`; or 
+ 
+ + Close the PDF file once you get an error message and press enter on the command window
+
+
+# `markstat`
+
++ Writing markdown in Stata with `markstat` is simple, and similar to what would be done in `R`, for example
++ Open the file called `Stata markdown template.stmd` to see how it works
++ To write (and format) text, write markdown without indentation -- use `Markdown cheatsheet.stmd` for examples of how to format text using markdown
+
+# Including Stata code
+
++ The simplest way to write Stata code is start a line with four spaces or one tab:
+
+~~~
+ Hello world!
+
+	sysuse auto, clear
+~~~
+
+# Including Stata code
+
++ You can also use fenced code blocks (as the one below)
++ They make the `.stmd` file harder to read, but allow you to use more advanced 
+options -- we'll see some examples soon
+
+~~~
+ Write text without indentation
+
+```{s}
+	* Write stata code inside chunks
+	sum mpg
+```
+~~~
+
+# Including Stata output
+
+### Exercise 2:
+
+1. Under the second title in `Stata markdown template.stmd`, add Stata code 
+using a command that prints some output to the Stata window 
+(`summarize`, `keep`, `gen` and `tab` are good examples)
+1. Save the markdown file
+1. If you have a PDF open, close it
+1. Open `Master.do`
+1. Set the `packages` and `paths` locals to `0`
+1. Run `Master.do`
+
+# Including Stata output {.fragile}
+
+~~~
+```{s}
+	* Summary of miles per gallon
+	sum mpg
+```
+~~~
+
+```{s}
+	* Summary of miles per gallon
+	sum mpg
+```
+
+
+# Including Stata graphs {.fragile}
+
+To include Stata graphs:
+
+1. Create the graphs in Stata
+2. Save it locally using `graph export`
+3. Use the following markdown syntax to include the graph: `![figure caption](figure name.png)`
+
+# Including Stata graphs {.fragile}
+
+~~~
+```{s}
+    scatter weight length, ///
+		legend(off)
+    graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)
+~~~
+
+# Including Stata graphs
+
+### Exercise 3
+
+1. Go to `Stata markdown template.stmd`
+1. Create and export a graph using the loaded data
+1. Include markdown code to display the graph you just saved
+1. Save the markdown file
+1. If you have a PDF open, close it
+1. Run `Master.do`
+
+# Including Stata graphs {.fragile}
+
+```{s}
+    scatter weight length, ///
+		legend(off)
+    graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)
+
+# Omitting Stata code {.fragile}
+
++ Depending on the type of document you are writing, you may want to only display the results of your code (tables, graphs, etc)
++ This is when using strict code blocks is useful
++ To omit the Stata code from the document, type `{s/}` on the opening of your code chunk
+
+
+# Omitting Stata code {.fragile}
+
+~~~
+```{s/}
+    scatter weight length, ///
+		legend(off)
+    graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)
+~~~
+
+# Omitting Stata code {.fragile}
+
+```{s/}
+    scatter weight length, ///
+		legend(off)
+    graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)
+
+
+# Omitting Stata output
+
++ Now, the last slide probably wasn't exactly what you were expecting, right?
++ Using `{s/}` will commit the code you used, but not it's output
++ To omit the output, simply run your code `quietly`
+
+
+# Omitting Stata output {.fragile}
+
+~~~
+```{s/}
+    scatter weight length, ///
+		legend(off)
+    quietly graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)
+~~~
+
+# Omitting Stata output {.fragile}
+
+```{s/}
+    scatter weight length, ///
+		legend(off)
+    quietly graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)
+
+# Including Stata tables {.fragile}
+
++ To include estimation results, we recommend using `esttab`
++ The window output of `esttab` is well-formatted, and including that output
+is the simplest way to display a table
++ `esttab` also exports to HTML and TeX, but those are more advanced examples that are beyond the scope of this presentation
++ You can find more detailed examples in the [Stata Markdown website](https://data.princeton.edu/stata/markdown/examples)
+
+# Including Stata tables {.fragile}
+
+~~~
+```{s/}
+	qui reg price headroom
+	est sto reg1
+
+	qui regress price headroom trunk
+	est sto reg2
+
+	qui regress price headroom trunk foreign
+	est sto reg3
+
+	esttab reg1 reg2 reg3, ///
+		replace ///
+		label se ///
+		nomtitles 
+```
+~~~
+
+# Including Stata tables {.fragile}
+
+```{s/}	
+	esttab reg1 reg2 reg3, ///
+		replace ///
+		label se ///
+		nomtitles 
+```
+
+# Including Stata tables {.fragile}
+
+### Exercise 4
+
+1. Go to `Stata markdown template.stmd`
+1. Inside a Stata code block, run a few simple regressions on the loaded data
+1. Use `esttab` to output the regression results
+1. Save the markdown file
+1. If you have a PDF open, close it
+1. Run `Master.do`
+
+# Including code inline
+
++ Sometimes we want to reference numbers in our text
++ If the numbers change for any reason, it's better to have them automatically updated than review the whole presentation for adjustments
++ Markdown lets you write code inline with your text
+
+# Including code inline
+
++ Writing
+
+~~~
+Today is `s c(current_date)`.
+~~~ 
+
++ Will result in 
+
+Today is `s c(current_date)`.
+
+# Including code inline {.fragile}
+
+### Exercise 5
+
+Using inline Stata code, try to include the following items to your current markdown file:
+
++ The sample includes `s `models'` different car models produced by `s `makes'` different companies
++ `s `foreign'` are foreign models, and `s `domestic'` are domestic
+
+# Including code inline {.fragile}
+
+~~~
+```{s}
+qui count
+local models `r(N)'
+
+cap drop make_*
+qui split make, gen(make_)
+qui unique make_1
+local makes `r(unique)'
+
+qui count if foreign == 1
+local foreign `r(N)'
+
+qui count if foreign == 0
+local domestic `r(N)'
+```
+~~~
+
+# Including code inline {.fragile}
+~~~
++ The sample includes `s `models'` different car 
+models produced by `s `makes'` different companies
++ `s `foreign'` are foreign models, and `s `domestic'` 
+are domestic
+~~~
+
+# Including code inline {.fragile}
+
+ + Inline code is particularly useful when you want to display a custom table
+ + You can create the table using markdown, and add the numbers to the right columns using locals
+ + However, to create these you need to specify the `strict` option when compiling
+ + And they will not necessarily render will in all different formats
+ 
+# Including code inline {.fragile}
+
+ + Writing
+ 
+~~~
+| Car origin  | N obs        |
+|:------------|-------------:|
+| Domestic    |`s `domestic'`|
+| Foreign     |`s `foreign'` |
+~~~
+
+ + Will result in 
+ 
+| Car origin  | N obs        |
+|:------------|-------------:|
+| Domestic    |`s `domestic'`|
+| Foreign     |`s `foreign'` |
+
+
+# Adding a title to your document
+
+ + There are three pieces of metadata that you can easily add to your document: title, author and date
+ + You can do this by adding the following code to the beginning of your document:
+ 
+~~~
+% Document Title
+% Author
+% Date
+~~~
+
+# Other tools for dynamic documents in Stata
+
+ [**texdoc**](http://repec.sowi.unibe.ch/stata/texdoc/)
+ 
+ + Stata package created by Ben Jann
+ + Write LaTeX code instead of markdown
+ + The markdown file is not as easy to read
+ + But can be easier to format, if you know TeX well
+ + Debugging LaTeX errors can be hard
+ 
+# Other tools for dynamic documents in Stata
+
+ [**Stata Markdown**](http://stata.com/features/overview/markdown/)
+ 
+ + Tools built-in Stata 15 or newer versions 
+ + `dyndoc`: create Word or HTML files from Markdown
+ + `putpdf`: create PDF files
+ + Syntax is different for different output formats
+ + Syntax is unique to these commands
+ + The markdown file is not as easy to read
+ 
+# Other tools for dynamic documents in Stata
+
+ + E.F Haghish has a few different commands for dynamic documents in Stata. 
+ + [This presentation](https://www.stata.com/meeting/italy14/abstracts/materials/it14_haghish.pdf)
+ is great introduction to them
+ 
+ [**MarkDoc**](http://haghish.com/statistics/stata-blog/reproducible-research/markdoc.php)
+ 
+ + Translates log files to Markdown, doc, LaTeX, HTML, epub and a number of other formats
+ 
+ [**weaver**](http://github.com/haghish/weaver)
+ 
+ + Real-time preview of the document
+  
+# Other resources
+
+ + This presentation was mostly based on [German Rodriguez, 2017. "MARKSTAT: Stata module to support literate data analysis using Stata and Markdown," Statistical Software Components S458401, Boston College Department of Economics, revised 08 May 2018.](https://data.princeton.edu/stata/markdown/markstat.pdf)
+ + The [`markstat` website](https://data.princeton.edu/stata/markdown) contains a lot of material, examples and FAQs
+ 

@@ -1,0 +1,48 @@
+# Quick markdown cheatsheet
+
+## Headers
+
+# Title 1
+
+## Title 2
+
+### Title 3
+
+###### Title 6
+
+## Text
+
+*Italic text*
+**Bold text**
+`monospace font`
+
+## Lists
+
+This is a list:
+
+* Item one
+* Item two
+
+This is also a list:
+
++ Item one
++ Item two
+
+And this:
+
+- Item one
+- Item two
+
+## Bonus
+
++ Links
+
+[Text](url)
+
++ Images
+
+![Image caption](imagename.png)
+
++ Formulas
+
+$y = \alpha + beta x + e$

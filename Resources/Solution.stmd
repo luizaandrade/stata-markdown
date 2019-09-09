@@ -1,0 +1,62 @@
+# Dynamic Documents in Stata
+
+ Hello world!
+
+	sysuse auto, clear
+	
+# Markdown in Stata
+
+ Write text without indentation
+
+```{s}
+	* Summary of miles per gallon
+	sum mpg
+```
+
+# Including Stata graphs
+
+```{s}
+    scatter weight length, ///
+		legend(off)
+    graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)
+
+# Omitting Stata code
+
+```{s/}
+    scatter weight length, ///
+		legend(off)
+    graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)
+
+# Omitting Stata output
+
+```{s/}
+    scatter weight length, ///
+		legend(off)
+    quietly graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)
+
+# Stata Tables
+
+```{s/}
+	qui reg price headroom
+	est sto reg1
+
+	qui regress price headroom trunk
+	est sto reg2
+
+	qui regress price headroom trunk foreign
+	est sto reg3
+
+	esttab reg1 reg2 reg3, ///
+		replace ///
+		label se ///
+		nomtitles 
+```

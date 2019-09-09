@@ -1,0 +1,14 @@
+# Dynamic Documents in Stata
+
+ Hello world!
+
+	sysuse auto, clear
+	
+# Markdown in Stata
+
+ Write text without indentation
+
+```{s}
+	* Write stata code inside chunks
+```
+
