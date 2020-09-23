@@ -60,7 +60,7 @@
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
 		cd "${RT2}"
-		markstat using "Stata markdown template", pdf
+		markstat using "Stata markdown template"
 	
 	}
 	

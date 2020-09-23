@@ -1,14 +1,30 @@
+% Title: Stata Markdown Intro
+% Author: Luiza
+
 # Dynamic Documents in Stata
 
  Hello world!
 
+```{s}
 	sysuse auto, clear
+```
 	
 # Markdown in Stata
 
  Write text without indentation
 
 ```{s}
-	* Write stata code inside chunks
+	sum mpg
 ```
+
+# Now for a figure
+
+```{s/}
+	qui {
+		scatter mpg length
+		graph export scatter.png, replace width(400)
+	}
+```
+
+![This is a figure](scatter.png)
 

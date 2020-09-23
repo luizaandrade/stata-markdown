@@ -1,9 +1,13 @@
+% Dynamic documents in Stata using markstat
+% Luiza Andrade
+% September 23, 2020
+
 # Dynamic Documents in Stata
 
  Hello world!
 
 	sysuse auto, clear
-	
+
 # Markdown in Stata
 
  Write text without indentation
@@ -58,5 +62,5 @@
 	esttab reg1 reg2 reg3, ///
 		replace ///
 		label se ///
-		nomtitles 
+		nomtitles
 ```
