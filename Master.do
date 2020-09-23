@@ -1,8 +1,7 @@
 /*==============================================================================
 
-						MAKING ANALYTICS REUSABLE
-							Washington, DC
-							 March 1, 2019
+							  Virtual RT2
+						   September 23, 2020
 							 
 					STATA MARKDOWN MASTER DO FILE
 							 
@@ -40,12 +39,15 @@
 
 	if `paths' {
 
-		* Tell Stata where to find the relevant programs	
-		whereis pdflatex 			"ADD/PATH/HERE"
-		whereis pandoc 				"ADD/PATH/HERE"
+		* Tell Stata where to find the relevant programs :
+		* On Mac/Linux, go to terminal and type "which pdflatex" and "which pandoc"
+		* On Windows, go to the command prompt and type "where pdflatex" and "where pandoc"
+		* Paste the respective results on the lines below
+		whereis pdflatex 			"ADD/FILE/PATH/HERE"
+		whereis pandoc 				"ADD/FILE/PATH/HERE"
 		
 		* Workshop folder
-		global	mdfolder	"C:\Users\luiza\Documents\GitHub\stata-markdown"
+		global	RT2					"ADD/FILE/PATH/HERE"
 	}
 	
 /*******************************************************************************
@@ -55,10 +57,10 @@
 	if `document' {
 	
 		* Copy the Stata style to the same folder as the markdown file to compile in PDF
-		//cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		markstat using "${mdfolder}/Stata markdown template", pdf
+		cd "${RT2}"
+		markstat using "Stata markdown template", pdf
 	
 	}
 	
