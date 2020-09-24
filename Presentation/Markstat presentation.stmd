@@ -87,7 +87,7 @@ Cons:
 **`markstat`**
 
  + Stata command created by German Rodriguez
- + Allows users to create and compile and Stata markdown file combining Stata code and markdown text
+ + Allows users to create and compile Stata markdown files combining Stata code and markdown text
  + Saves the outputs to PDF, word, HTML and beamer
 
 
