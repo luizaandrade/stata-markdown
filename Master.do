@@ -1,10 +1,13 @@
 /*==============================================================================
 
-						MAKING ANALYTICS REUSABLE
+		  DIME Analytics Continuing Education - Stata Markdown
 							Washington, DC
-							 March 1, 2019
+						  February 11, 2021
 							 
 					STATA MARKDOWN MASTER DO FILE
+							 
+Author: Luiza Cardoso de Andrade
+Last modified: Luis Eduardo San Martin on February 10 2021
 							 
 ==============================================================================*/
 
@@ -12,8 +15,8 @@
 	PART 0: Select sections to run
 *******************************************************************************/
 
-	local packages		1
-	local paths			1
+	local packages		0
+	local paths			0
 	local document		1
 
 /*******************************************************************************
@@ -41,11 +44,15 @@
 	if `paths' {
 
 		* Tell Stata where to find the relevant programs	
-		whereis pdflatex 			"ADD/PATH/HERE"
-		whereis pandoc 				"ADD/PATH/HERE"
-		
-		* Workshop folder
-		global	mdfolder	"C:\Users\luiza\Documents\GitHub\stata-markdown"
+		whereis pdflatex 			"INSERT PATH HERE"
+									*example: "C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdflatex.exe"
+
+		whereis pandoc 				"INSERT PATH HERE"
+									*example: "C:/WBG/pandoc-2.10.1/pandoc.exe"
+				
+		* Session folder
+		* Paste here the location of this session's materials
+		global	mdfolder	"C:\WBG\Repos\stata-markdown"
 	}
 	
 /*******************************************************************************
