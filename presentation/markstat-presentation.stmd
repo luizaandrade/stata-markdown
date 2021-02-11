@@ -1,3 +1,7 @@
+% Stata Markdown
+% DIME Analytics RA Continuing Education
+% 11 Feb 2021
+
 ```{s/}
 	qui sysuse auto, clear
 
@@ -47,13 +51,14 @@
  Most tools for dynamic documents are created with *literate data analysis* in mind,
  where code and documentation is being produced together to increase research transparency.
 
+![](img/dynamic-docs.png){width="101%"}
 
 # Introduction
 
 When to use dynamic documents?
 
  + Include text and outputs in the same document -- no more having to copy and
- paste figures, tables or plots from Stata to a document editor!
+ paste figures, tables or plots to a document editor!
  + Nice option for simple documents that don't require a lot of formatting
  + Can include code snippets or code examples in a document too
  + Quickly visualize formatted tables
@@ -69,8 +74,8 @@ Cons:
 
  + Error messages may not be super clear (specially when using LaTeX)
  + Harder to include detailed formatting
- + No syntax highlighting for the Markdown part in many editors
- (like the dofile editor), which makes it harder to debug Markdown
+ + No syntax highlighting for the text part in many editors
+ (like the dofile editor), which makes it harder to debug text formatting
 
 # Introduction
 
@@ -166,6 +171,19 @@ markstat using filename,
 	 bibliography strict nodo nor keep]
 ~~~
 
+# `markstat`  {.fragile}
+
+In our case, we used:
+
+~~~
+markstat using stata-markdown-template, pdf
+~~~
+
+`stata-markdown-template` is the file with the extension `.stmd` you will find in the materials folder.
+
+It contains the Markdown and Stata code we just rendered to a `pdf` file using `markstat`.
+
+Try opening it in the do-file editor to see how its content relates to the file generated.
 
 # `markstat`
 
@@ -188,12 +206,14 @@ Here are some notes on Exercise 1:
 
 * Go to [`markstat` website](https://data.princeton.edu/stata/markdown/presentations) to see how to change the slides theme
 
-* On beamer, slides with Stata code or ouput need to be in the fragile style. It can be set like this:
+* On beamer, slides with Stata code or output need to be in the fragile style. It can be set like this:
 
 ~~~
 		# Slide title {.fragile}
 ~~~
 
+* You might have noticed that the materials folder contains a file named `stata.sty`. This file is necessary
+to render Stata Markdown code using `markstat`, and it should be placed in the same folder as your `.stmd` file
 
 # `markstat`
 
@@ -207,9 +227,9 @@ In some systems, you will not be able to replace the PDF if it's open. There are
 # `markstat`
 
 + Writing markdown in Stata with `markstat` is simple, and similar to what would be done in `R`, for example
-+ Open the file called `Stata markdown template.stmd` to see how it works
-+ To write (and format) text, write markdown without indentation
-+ Check `Resources/Markdown cheatsheet.stmd` for examples of how to format text using markdown
++ Check the file called `Stata markdown template.stmd` on your Do-file editor to see how it works
++ To write text, write markdown without indentation
++ Check `Resources/markdown-cheatsheet.stmd` for examples of how to format text using markdown
 
 # Including Stata code
 
@@ -293,7 +313,7 @@ To include Stata graphs:
 ### Exercise 3
 
 1. Go to `Stata markdown template.stmd`
-1. Create and export a graph using the loaded data
+1. Create and export a graph using the loaded data (you can use the command `scatter`, for example)
 1. Include markdown code to display the graph you just saved
 1. Save the markdown file
 1. If you have a PDF open, close it
@@ -342,8 +362,8 @@ To include Stata graphs:
 # Omitting Stata output
 
 + Now, the last slide probably wasn't exactly what you were expecting, right?
-+ Using `{s/}` will omit the code you used, **but not it's output**
-+ To omit the output, simply run your code `quietly`
++ Using `{s/}` will omit the code you used, **but not the messages it generated**
++ To omit any message, simply run your code `quietly`
 
 
 # Omitting Stata output {.fragile}
@@ -440,7 +460,7 @@ Today is `s c(current_date)`.
 
 Using inline Stata code, try to include the following items to your current markdown file:
 
-+ The sample includes `s `models'` different car models produced by `s `makes'` different companies
++ The sample includes `s `models'` different car models 
 + `s `foreign'` are foreign models, and `s `domestic'` are domestic
 
 # Including code inline {.fragile}
@@ -449,11 +469,6 @@ Using inline Stata code, try to include the following items to your current mark
 ```{s}
 qui count
 local models `r(N)'
-
-cap drop make_*
-qui split make, gen(make_)
-qui unique make_1
-local makes `r(unique)'
 
 qui count if foreign == 1
 local foreign `r(N)'
@@ -466,14 +481,14 @@ local domestic `r(N)'
 # Including code inline {.fragile}
 ~~~
 + The sample includes `s `models'` different car
-models produced by `s `makes'` different companies
+models
 + `s `foreign'` are foreign models, and `s `domestic'`
 are domestic
 ~~~
 
 This results in:
 
-+ The sample includes `s `models'` different car models produced by `s `makes'` different companies
++ The sample includes `s `models'` different car models 
 + `s `foreign'` are foreign models, and `s `domestic'` are domestic
 
 # Including code inline {.fragile}
