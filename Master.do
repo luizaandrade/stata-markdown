@@ -7,7 +7,7 @@
 					STATA MARKDOWN MASTER DO FILE
 							 
 Author: Luiza Cardoso de Andrade
-Last modified: Luis Eduardo San Martin on February 10 2021
+Last modified: by Luis Eduardo San Martin on February 10 2021
 							 
 ==============================================================================*/
 
@@ -15,8 +15,8 @@ Last modified: Luis Eduardo San Martin on February 10 2021
 	PART 0: Select sections to run
 *******************************************************************************/
 
-	local packages		0
-	local paths			0
+	local packages		1
+	local paths			1
 	local document		1
 
 /*******************************************************************************
@@ -52,9 +52,10 @@ Last modified: Luis Eduardo San Martin on February 10 2021
 				
 		* Session folder
 		* Paste here the location of this session's materials
-		global	mdfolder	"C:\WBG\Repos\stata-markdown"
+		global	mdfolder	"INSERT PATH HERE"
+							*example: "C:\Users\wb532468\OneDrive - WBG\Documents\stata-markdown-CE-session"
 	}
-	
+
 /*******************************************************************************
 	PART 3: Create document
 *******************************************************************************/
@@ -65,7 +66,7 @@ Last modified: Luis Eduardo San Martin on February 10 2021
 		//cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		markstat using "${mdfolder}/Stata markdown template", pdf
+		markstat using "${mdfolder}/stata-markdown-template", pdf
 	
 	}
 	
