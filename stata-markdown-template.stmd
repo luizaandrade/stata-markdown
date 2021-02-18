@@ -3,12 +3,12 @@
  Hello world!
 
 	sysuse auto, clear
-	
+
 # Markdown in Stata
 
  Write text without indentation
 
 ```{s}
-	* Write stata code inside chunks
+	* Write Stata code inside chunks
+  sysuse auto, clear
 ```
-
