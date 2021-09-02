@@ -1,6 +1,3 @@
-% Stata Markdown
-% DIME Analytics RA Continuing Education
-% 11 Feb 2021
 
 ```{s/}
 	qui sysuse auto, clear
@@ -114,9 +111,8 @@ Cons:
 
 # Get the material
 
-1. Go to [the session OSF page](https://osf.io/8sgrh/)
-1. On the Files section, select `OSF Storage > 2021_02 - RA Continuing Education (Stata Markdown)`
-1. Download the file `stata-markdown-CE-session.zip`
+1. Go to [the session OSF page](https://osf.io/jvxdn/)
+1. Download the file `Stata Markdown Materials.zip`
 1. Unzip the file in a location you can remember
 
 # Installation
@@ -142,7 +138,7 @@ Install the necessary programs
 
 # Stata setup
 
-1. Go to the location where you unzipped the file `stata-markdown-CE-session.zip`
+1. Go to the location where you unzipped the file `Stata Markdown Materials.zip`
 1. Open `Master.do`
 
 # Stata setup
@@ -213,7 +209,7 @@ Here are some notes on Exercise 1:
 ~~~
 
 * You might have noticed that the materials folder contains a file named `stata.sty`. This file is necessary
-to render Stata Markdown code using `markstat`, and it should be placed in the same folder as your `.stmd` file
+to render Stata Markdown code in PDF, and it should be placed in the same folder as your `.stmd` file
 
 # `markstat`
 
@@ -226,7 +222,7 @@ In some systems, you will not be able to replace the PDF if it's open. There are
 
 # `markstat`
 
-+ Writing markdown in Stata with `markstat` is simple, and similar to what would be done in `R`, for example
++ Writing markdown in Stata with `markstat` is simple, and similar to what would be done in `R`
 + Check the file called `Stata markdown template.stmd` on your Do-file editor to see how it works
 + To write text, write markdown without indentation
 + Check `Resources/markdown-cheatsheet.stmd` for examples of how to format text using markdown
@@ -387,6 +383,24 @@ To include Stata graphs:
 ```
 
 ![Correlation between weight and length](scatter.png)
+
+# Including math notation
+
++ To include math notation, such as equations, you can use LaTeX notation
++ `markstat` will read anything inside dollar signs ($) as LaTeX math notation
++ You can find resources on LaTeX math notation [here](https://www.caam.rice.edu/~heinken/latex/symbols.pdf)
+
+~~~
+$$
+	Y = \alpha + \beta_{1} X_{1} + \beta_{2} X_{2} + \ldots + \beta_{n}  X_{n} + \epsilon
+$$
+~~~
+
+$$
+	Y = \alpha + \beta_{1} X_{1} + \beta_{2} X_{2} + \ldots + \beta_{n}  X_{n} + \epsilon
+$$
+
+
 
 # Including Stata tables {.fragile}
 
