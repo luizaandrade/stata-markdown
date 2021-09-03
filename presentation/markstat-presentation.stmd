@@ -187,13 +187,13 @@ Try opening it in the do-file editor to see how its content relates to the file 
 
 Test different output formats for `Stata markdown template` by specifying on master:
 
-1. `markstat using "${{mdfolder}}/Stata markdown template", pdf`
+1. `markstat using "${mdfolder}/stata-markdown-template", pdf`
 
-1. `markstat using "${{mdfolder}}/Stata markdown template", docx`
+1. `markstat using "${mdfolder}/stata-markdown-template", docx`
 
-1. `markstat using "${{mdfolder}}/Stata markdown template", slides`
+1. `markstat using "${mdfolder}/stata-markdown-template", slides`
 
-1. `markstat using "${{mdfolder}}/Stata markdown template", beamer`
+1. `markstat using "${mdfolder}/stata-markdown-template", beamer`
 
 
 # `markstat`
@@ -409,6 +409,7 @@ $$
 is the simplest way to display a table
 + `esttab` also exports to HTML and TeX, but those are more advanced examples that are beyond the scope of this presentation
 + You can find more detailed examples in the [Stata Markdown website](https://data.princeton.edu/stata/markdown/examples)
++ For a demo of how to use `esttab` to customize tables, go to [this repository](https://github.com/worldbank/stata-tables)
 
 # Including Stata tables {.fragile}
 
@@ -474,7 +475,7 @@ Today is `s c(current_date)`.
 
 Using inline Stata code, try to include the following items to your current markdown file:
 
-+ The sample includes `s `models'` different car models 
++ The sample includes `s `models'` different car models
 + `s `foreign'` are foreign models, and `s `domestic'` are domestic
 
 # Including code inline {.fragile}
@@ -502,7 +503,7 @@ are domestic
 
 This results in:
 
-+ The sample includes `s `models'` different car models 
++ The sample includes `s `models'` different car models
 + `s `foreign'` are foreign models, and `s `domestic'` are domestic
 
 # Including code inline {.fragile}
