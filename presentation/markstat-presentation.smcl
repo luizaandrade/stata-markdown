@@ -1,0 +1,130 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\luizaandrade\Documents\GitHub\stata-markdown\Presentation\markstat-presentation.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}18 Dec 2023, 08:28:17
+{txt}
+{com}. //_1q
+. qui sysuse auto, clear
+{txt}
+{com}. 
+. qui eststo reg1 : reg price headroom
+{txt}
+{com}. qui eststo reg2 : reg price headroom trunk
+{txt}
+{com}. qui eststo reg3 : reg price headroom trunk foreign
+{txt}
+{com}. 
+. qui count
+{txt}
+{com}. local models `r(N)'
+{txt}
+{com}. 
+. cap drop make_*
+{txt}
+{com}. qui split make, gen(make_)
+{txt}
+{com}. qui unique make_1
+{txt}
+{com}. local makes `r(unique)'
+{txt}
+{com}. 
+. qui count if foreign == 1
+{txt}
+{com}. local foreign `r(N)'
+{txt}
+{com}. 
+. qui count if foreign == 0
+{txt}
+{com}. local domestic `r(N)'
+{txt}
+{com}. //_2
+. * Summary of miles per gallon
+. sysuse auto, clear
+{txt}(1978 automobile data)
+
+{com}. sum mpg
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}mpg {c |}{res}         74     21.2973    5.785503         12         41
+{txt}
+{com}. //_3q
+. scatter weight length, ///
+>     legend(off)
+{res}{txt}
+{com}. graph export scatter.png, width(800) replace
+{txt}{p 0 4 2}
+file {bf}
+scatter.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. //_4q
+. scatter weight length, ///
+>     legend(off)
+{res}{txt}
+{com}. quietly graph export scatter.png, width(800) replace
+{txt}
+{com}. //_5q
+. esttab reg1 reg2 reg3, ///
+>     replace ///
+>     label se ///
+>     nomtitles
+{res}
+{txt}{hline 68}
+{txt}                              (1)             (2)             (3)   
+{txt}{hline 68}
+{txt}Headroom (in.)      {res}        399.2          -580.8          -519.7   {txt}
+                    {res} {ralign 12:{txt:(}408.2{txt:)}}    {ralign 12:{txt:(}519.5{txt:)}}    {ralign 12:{txt:(}516.9{txt:)}}   {txt}
+
+{txt}Trunk space (.. ft.){res}                        292.8**         328.4** {txt}
+                    {res}                 {ralign 12:{txt:(}102.8{txt:)}}    {ralign 12:{txt:(}104.7{txt:)}}   {txt}
+
+{txt}Car origin          {res}                                       1128.8   {txt}
+                    {res}                                 {ralign 12:{txt:(}763.2{txt:)}}   {txt}
+
+{txt}Constant            {res}       4970.3***       3875.9**        2866.9*  {txt}
+                    {res} {ralign 12:{txt:(}1269.0{txt:)}}    {ralign 12:{txt:(}1270.0{txt:)}}    {ralign 12:{txt:(}1432.4{txt:)}}   {txt}
+{txt}{hline 68}
+{txt}Observations        {res}           74              74              74   {txt}
+{txt}{hline 68}
+{txt}Standard errors in parentheses
+{txt}* p<0.05, ** p<0.01, *** p<0.001
+
+{com}. //_6
+. display c(current_date)
+{res}18 Dec 2023
+{txt}
+{com}. //_7
+. display `models'
+{res}74
+{txt}
+{com}. //_8
+. display `foreign'
+{res}22
+{txt}
+{com}. //_9
+. display `domestic'
+{res}52
+{txt}
+{com}. //_10
+. display `domestic'
+{res}52
+{txt}
+{com}. //_11
+. display `foreign'
+{res}22
+{txt}
+{com}. //_^
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\luizaandrade\Documents\GitHub\stata-markdown\Presentation\markstat-presentation.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}18 Dec 2023, 08:28:18
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

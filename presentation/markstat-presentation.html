@@ -1,0 +1,735 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>markstat-presentation</title>
+  <style type="text/css">
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!-- configuration parameters -->
+  <meta name="defaultView" content="slideshow" />
+  <meta name="controlVis" content="hidden" />
+  <!-- style sheet links -->
+  <link rel="stylesheet" href="C:/Users/luizaandrade/ado/plus/m/s5/santiago/slides.css" type="text/css" media="projection" id="slideProj" />
+  <link rel="stylesheet" href="C:/Users/luizaandrade/ado/plus/m/s5/santiago/outline.css" type="text/css" media="screen" id="outlineStyle" />
+  <link rel="stylesheet" href="C:/Users/luizaandrade/ado/plus/m/s5/santiago/print.css" type="text/css" media="print" id="slidePrint" />
+  <link rel="stylesheet" href="C:/Users/luizaandrade/ado/plus/m/s5/santiago/opera.css" type="text/css" media="projection" id="operaFix" />
+  <!-- S5 JS -->
+  <script src="C:/Users/luizaandrade/ado/plus/m/s5/santiago/slides.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header"></div>
+<div id="footer">
+  <h1></h1>
+  <h2></h2>
+</div>
+</div>
+<div class="presentation">
+<div class="slide section level1">
+
+
+</div>
+<div id="outline" class="slide section level1">
+<h1>Outline</h1>
+<ol style="list-style-type: decimal">
+<li>Dynamic documents</li>
+<li><code>markdown</code> and <code>markstat</code></li>
+<li><code>markstat</code> installation</li>
+<li>Including console output in documents</li>
+<li>Including graphs in documents</li>
+<li>Including tables in documents</li>
+<li>Including inline code in documents</li>
+<li>References and resources</li>
+</ol>
+</div>
+<div id="introduction" class="slide section level1">
+<h1>Introduction</h1>
+<ul>
+<li>What is a dynamic document?</li>
+</ul>
+<p>In the context of this presentation, what we call a <em>dynamic
+document</em> is a document that contain both text and Stata outputs,
+where the outputs are updated automatically every time the script is
+run.</p>
+</div>
+<div id="introduction-1" class="slide section level1">
+<h1>Introduction</h1>
+<ul>
+<li>Why use dynamic documents?</li>
+</ul>
+<p>Most tools for dynamic documents are created with <em>literate data
+analysis</em> in mind, where code and documentation is being produced
+together to increase research transparency.</p>
+<p><img src="img/dynamic-docs.png" style="width:101.0%" /></p>
+</div>
+<div id="introduction-2" class="slide section level1">
+<h1>Introduction</h1>
+<p>When to use dynamic documents?</p>
+<ul>
+<li>Include text and outputs in the same document – no more having to
+copy and paste figures, tables or plots to a document editor!</li>
+<li>Nice option for simple documents that don’t require a lot of
+formatting</li>
+<li>Can include code snippets or code examples in a document too</li>
+<li>Quickly visualize formatted tables</li>
+</ul>
+</div>
+<div id="introduction-3" class="slide section level1">
+<h1>Introduction</h1>
+<p>Pros:</p>
+<ul>
+<li>Save time spent on copying and pasting or switching software</li>
+<li>Best option to include (and run) code in a document</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Error messages may not be super clear (specially when using
+LaTeX)</li>
+<li>Harder to include detailed formatting</li>
+<li>No syntax highlighting for the text part in many editors (like the
+dofile editor), which makes it harder to debug text formatting</li>
+</ul>
+</div>
+<div id="introduction-4" class="slide section level1">
+<h1>Introduction</h1>
+<ul>
+<li>There are a handful of options for dynamic documents in Stata</li>
+<li>You can find a review of different options <a
+href="https://www.stata.com/meeting/oceania16/slides/rising-oceania16.pdf">in
+this link</a></li>
+<li>For this presentation, we will use <a
+href="https://data.princeton.edu/stata/markdown/gettingStarted"><code>markstat</code></a>,
+as I believe it’s the most general and user friendly</li>
+<li>At the end of this presentation, you can find some material on the
+different tools for dynamic documents in Stata</li>
+</ul>
+</div>
+<div id="introduction-5" class="slide section level1">
+<h1>Introduction</h1>
+<p><strong><code>markstat</code></strong></p>
+<ul>
+<li>Stata command created by German Rodriguez</li>
+<li>Allows users to create and compile Stata markdown files by combining
+Stata code and markdown text</li>
+<li>Saves the outputs to PDF, word, HTML and beamer</li>
+</ul>
+</div>
+<div id="introduction-6" class="slide section level1">
+<h1>Introduction</h1>
+<p><strong><code>markstat</code></strong></p>
+<ol style="list-style-type: decimal">
+<li>Reads the Stata markdown file</li>
+<li>Separates (<em>tangles</em>) markdown and Stata code</li>
+<li>Runs each of them separately</li>
+<li>Puts their outputs back together (<em>weaves</em>) into a single
+document in the format you choose</li>
+</ol>
+</div>
+<div id="introduction-7" class="slide section level1">
+<h1>Introduction</h1>
+<p><a
+href="https://daringfireball.net/projects/markdown/syntax"><strong><code>markdown</code></strong></a></p>
+<ul>
+<li>Lightweight markup language</li>
+<li>Designed to be easily readable</li>
+<li>We won’t go into details about markdown in this session, but some
+resources are listed in the end of this presentation</li>
+<li>This session’s material includes a cheatsheet with everything you
+need to know to complete today’s exercises</li>
+</ul>
+</div>
+<div id="get-the-material" class="slide section level1">
+<h1>Get the material</h1>
+<ol style="list-style-type: decimal">
+<li>Go to <a href="https://osf.io/jvxdn/">the session OSF page</a></li>
+<li>Download the file <code>Stata Markdown Materials.zip</code></li>
+<li>Unzip the file in a location you can remember</li>
+</ol>
+</div>
+<div id="installation" class="slide section level1">
+<h1>Installation</h1>
+<p>Install the necessary programs</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://pandoc.org/installing.html">pandoc</a>
+<ul>
+<li>If you use a WB computer, please use the Windows <code>.zip</code>
+installation file instead of the <code>.msi</code> installer and take
+note of the location where you unzip the Pandoc folder</li>
+</ul></li>
+<li><a href="https://miktex.org/download">TeX/LaTeX</a></li>
+</ol>
+</div>
+<div id="installation-1" class="slide section level1">
+<h1>Installation</h1>
+<p>Find out where the programs are installed</p>
+<ul>
+<li><code>pdflatex</code>:
+<ul>
+<li>On Windows: open the command line and type
+<code>where pdflatex</code></li>
+<li>On Mac or Linux: open the terminal and type
+<code>which pdflatex</code></li>
+</ul></li>
+<li><code>pandoc</code>:
+<ul>
+<li>On Windows:
+<ul>
+<li>WB computers: use the path where you unzipped Pandoc</li>
+<li>Non-WB computers: open the command line and type
+<code>where pandoc</code></li>
+</ul></li>
+<li>On Mac or Linux: on the terminal, type
+<code>which pandoc</code></li>
+</ul></li>
+</ul>
+</div>
+<div id="stata-setup" class="slide section level1">
+<h1>Stata setup</h1>
+<ol style="list-style-type: decimal">
+<li>Go to the location where you unzipped the file
+<code>Stata Markdown Materials.zip</code></li>
+<li>Open <code>Master.do</code></li>
+</ol>
+</div>
+<div id="stata-setup-1" class="slide section level1">
+<h1>Stata setup</h1>
+<p><img src="img/master.png" style="width:75.0%" alt="master" /><br />
+</p>
+</div>
+<div id="stata-setup-2" class="slide section level1">
+<h1>Stata setup</h1>
+<ol style="list-style-type: decimal">
+<li>Paste the location of pdflatex to the line that starts with
+<code>whereis pdflatex</code>
+<ul>
+<li>Example: <em>“C:/Program Files/MiKTeX
+2.9/miktex/bin/x64/pdflatex.exe”</em></li>
+<li><strong>On Windows:</strong> Make sure to include the
+<code>.exe</code> file extension</li>
+</ul></li>
+<li>Paste the location of Pandoc to the line that starts with
+<code>whereis pandoc</code>
+<ul>
+<li>Example: <em>“C:/WBG/pandoc-2.11.4/pandoc.exe”</em></li>
+</ul></li>
+<li>Make sure all the locals in <code>PART 0</code> are equal to 1</li>
+<li>Run <code>Master.do</code></li>
+</ol>
+</div>
+<div id="markstat" class="slide section level1 fragile">
+<h1 class="fragile"><code>markstat</code></h1>
+<p>The command that creates the final document is
+<code>markstat</code></p>
+<pre><code>markstat using filename,
+    [pdf docx slides beamer mathjax
+     bibliography strict nodo nor keep]</code></pre>
+</div>
+<div id="markstat-1" class="slide section level1 fragile">
+<h1 class="fragile"><code>markstat</code></h1>
+<p>In our case, we used:</p>
+<pre><code>markstat using stata-markdown-template, pdf</code></pre>
+<p><code>stata-markdown-template</code> is the file with the extension
+<code>.stmd</code> you will find in the materials folder.</p>
+<p>It contains the Markdown and Stata code we just rendered to a
+<code>pdf</code> file using <code>markstat</code>.</p>
+<p>Try opening it in the do-file editor to see how its content relates
+to the file generated.</p>
+</div>
+<div id="markstat-2" class="slide section level1">
+<h1><code>markstat</code></h1>
+<h3 id="exercise-1">Exercise 1:</h3>
+<p>Test different output formats for
+<code>Stata markdown template</code> by specifying on master:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>markstat using "${mdfolder}/stata-markdown-template", pdf</code></p></li>
+<li><p><code>markstat using "${mdfolder}/stata-markdown-template", docx</code></p></li>
+<li><p><code>markstat using "${mdfolder}/stata-markdown-template", slides</code></p></li>
+<li><p><code>markstat using "${mdfolder}/stata-markdown-template", beamer</code></p></li>
+</ol>
+</div>
+<div id="markstat-3" class="slide section level1">
+<h1><code>markstat</code></h1>
+<p>Here are some notes on Exercise 1:</p>
+<ul>
+<li><p>Go to <a
+href="https://data.princeton.edu/stata/markdown/presentations"><code>markstat</code>
+website</a> to see how to change the slides theme</p></li>
+<li><p>On beamer, slides with Stata code or output need to be in the
+fragile style. It can be set like this:</p></li>
+</ul>
+<pre><code>        # Slide title {.fragile}</code></pre>
+<ul>
+<li>You might have noticed that the materials folder contains a file
+named <code>stata.sty</code>. This file is necessary to render Stata
+Markdown code in PDF, and it should be placed in the same folder as your
+<code>.stmd</code> file</li>
+</ul>
+</div>
+<div id="markstat-4" class="slide section level1">
+<h1><code>markstat</code></h1>
+<p>In some systems, you will not be able to replace the PDF if it’s
+open. There are two possible solutions:</p>
+<ul>
+<li><p>Close the PDF file before running <code>markstat</code>;
+or</p></li>
+<li><p>Close the PDF file once you get an error message and press enter
+on the command window</p></li>
+</ul>
+</div>
+<div id="markstat-5" class="slide section level1">
+<h1><code>markstat</code></h1>
+<ul>
+<li>Writing markdown in Stata with <code>markstat</code> is simple, and
+similar to what would be done in <code>R</code></li>
+<li>Check the file called <code>Stata markdown template.stmd</code> on
+your Do-file editor to see how it works</li>
+<li>To write text, write markdown without indentation</li>
+<li>Check <code>Resources/markdown-cheatsheet.stmd</code> for examples
+of how to format text using markdown</li>
+</ul>
+</div>
+<div id="including-stata-code" class="slide section level1">
+<h1>Including Stata code</h1>
+<ul>
+<li>The simplest way to write Stata code is start a line with four
+spaces or one tab:</li>
+</ul>
+<pre><code> This is regular text
+ Hello world!
+
+    *This is Stata:
+    sysuse auto, clear</code></pre>
+</div>
+<div id="including-stata-code-1" class="slide section level1">
+<h1>Including Stata code</h1>
+<ul>
+<li>You can also use fenced code blocks (as the one below)</li>
+<li>They make the <code>.stmd</code> file harder to read, but allow you
+to use more advanced options – we’ll see some examples soon</li>
+</ul>
+<pre><code> Write text without indentation
+
+```{s}
+    * Write stata code inside chunks
+    sum mpg
+```</code></pre>
+</div>
+<div id="including-stata-output" class="slide section level1">
+<h1>Including Stata output</h1>
+<h3 id="exercise-2">Exercise 2:</h3>
+<ol style="list-style-type: decimal">
+<li>Under the second title in <code>Stata markdown template.stmd</code>,
+add Stata code using a command that prints some output to the Stata
+window (<code>summarize</code>, <code>keep</code>, <code>gen</code> and
+<code>tab</code> are good examples)</li>
+<li>Save the markdown file</li>
+<li>If you have a PDF open, close it</li>
+<li>Open <code>Master.do</code></li>
+<li>Set the <code>packages</code> and <code>paths</code> locals to
+<code>0</code></li>
+<li>Run <code>Master.do</code></li>
+</ol>
+</div>
+<div id="including-stata-output-1" class="slide section level1 fragile">
+<h1 class="fragile">Including Stata output</h1>
+<pre><code>```{s}
+    * Summary of miles per gallon
+    sysuse auto,clear
+    sum mpg
+```</code></pre>
+<pre class='stata'>. * Summary of miles per gallon
+. sysuse auto, clear
+(1978 automobile data)
+
+. sum mpg
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+         mpg │         74     21.2973    5.785503         12         41
+</pre>
+</div>
+<div id="including-stata-graphs" class="slide section level1 fragile">
+<h1 class="fragile">Including Stata graphs</h1>
+<p>To include Stata graphs:</p>
+<ol style="list-style-type: decimal">
+<li>Create the graphs in Stata</li>
+<li>Save it locally using <code>graph export</code></li>
+<li>Use the following markdown syntax to include the graph:
+<code>![figure caption](figure name.png)</code></li>
+</ol>
+</div>
+<div id="including-stata-graphs-1" class="slide section level1 fragile">
+<h1 class="fragile">Including Stata graphs</h1>
+<pre><code>```{s}
+    scatter weight length, ///
+        legend(off)
+    graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)</code></pre>
+</div>
+<div id="including-stata-graphs-2" class="slide section level1">
+<h1>Including Stata graphs</h1>
+<h3 id="exercise-3">Exercise 3</h3>
+<ol style="list-style-type: decimal">
+<li>Go to <code>Stata markdown template.stmd</code></li>
+<li>Create and export a graph using the loaded data (you can use the
+command <code>scatter</code>, for example)</li>
+<li>Include markdown code to display the graph you just saved</li>
+<li>Save the markdown file</li>
+<li>If you have a PDF open, close it</li>
+<li>Run <code>Master.do</code></li>
+</ol>
+</div>
+<div id="including-stata-graphs-3" class="slide section level1 fragile">
+<h1 class="fragile">Including Stata graphs</h1>
+<pre class='stata'>. scatter weight length, ///
+>     legend(off)
+
+. graph export scatter.png, width(800) replace
+file scatter.png saved as PNG format
+</pre>
+<div class="figure">
+<img src="scatter.png" alt="" />
+<p class="caption">Correlation between weight and length</p>
+</div>
+</div>
+<div id="omitting-stata-code" class="slide section level1 fragile">
+<h1 class="fragile">Omitting Stata code</h1>
+<ul>
+<li>Depending on the type of document you are writing, you may want to
+only display the results of your code (tables, graphs, etc)</li>
+<li>This is when using strict code blocks is useful</li>
+<li>To omit the Stata code from the document, type <code>{s/}</code> on
+the opening of your code chunk</li>
+</ul>
+</div>
+<div id="omitting-stata-code-1" class="slide section level1 fragile">
+<h1 class="fragile">Omitting Stata code</h1>
+<pre><code>```{s/}
+    scatter weight length, ///
+        legend(off)
+    graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)</code></pre>
+</div>
+<div id="omitting-stata-code-2" class="slide section level1 fragile">
+<h1 class="fragile">Omitting Stata code</h1>
+<pre class='stata'>file scatter.png saved as PNG format
+</pre>
+<div class="figure">
+<img src="scatter.png" alt="" />
+<p class="caption">Correlation between weight and length</p>
+</div>
+</div>
+<div id="omitting-stata-output" class="slide section level1">
+<h1>Omitting Stata output</h1>
+<ul>
+<li>Now, the last slide probably wasn’t exactly what you were expecting,
+right?</li>
+<li>Using <code>{s/}</code> will omit the code you used, <strong>but not
+the messages it generated</strong></li>
+<li>To omit any message, simply run your code <code>quietly</code></li>
+</ul>
+</div>
+<div id="omitting-stata-output-1" class="slide section level1 fragile">
+<h1 class="fragile">Omitting Stata output</h1>
+<pre><code>```{s/}
+    scatter weight length, ///
+        legend(off)
+    quietly graph export scatter.png, width(800) replace
+```
+
+![Correlation between weight and length](scatter.png)</code></pre>
+</div>
+<div id="omitting-stata-output-2" class="slide section level1 fragile">
+<h1 class="fragile">Omitting Stata output</h1>
+
+<div class="figure">
+<img src="scatter.png" alt="" />
+<p class="caption">Correlation between weight and length</p>
+</div>
+</div>
+<div id="including-math-notation" class="slide section level1">
+<h1>Including math notation</h1>
+<ul>
+<li>To include math notation, such as equations, you can use LaTeX
+notation</li>
+<li><code>markstat</code> will read anything inside dollar signs ($) as
+LaTeX math notation</li>
+<li>You can find resources on LaTeX math notation <a
+href="https://www.caam.rice.edu/~heinken/latex/symbols.pdf">here</a></li>
+</ul>
+<pre><code>$$
+    Y = \alpha + \beta_{1} X_{1} + \beta_{2} X_{2} + \ldots + \beta_{n}  X_{n} + \epsilon
+$$</code></pre>
+<p><span
+class="math display"><em>Y</em> = <em>α</em> + <em>β</em><sub>1</sub><em>X</em><sub>1</sub> + <em>β</em><sub>2</sub><em>X</em><sub>2</sub> + … + <em>β</em><sub><em>n</em></sub><em>X</em><sub><em>n</em></sub> + <em>ϵ</em></span></p>
+</div>
+<div id="including-stata-tables" class="slide section level1 fragile">
+<h1 class="fragile">Including Stata tables</h1>
+<ul>
+<li>To include estimation results, we recommend using
+<code>esttab</code></li>
+<li>The window output of <code>esttab</code> is well-formatted, and
+including that output is the simplest way to display a table</li>
+<li><code>esttab</code> also exports to HTML and TeX, but those are more
+advanced examples that are beyond the scope of this presentation</li>
+<li>You can find more detailed examples in the <a
+href="https://data.princeton.edu/stata/markdown/examples">Stata Markdown
+website</a></li>
+<li>For a demo of how to use <code>esttab</code> to customize tables, go
+to <a href="https://github.com/worldbank/stata-tables">this
+repository</a></li>
+</ul>
+</div>
+<div id="including-stata-tables-1" class="slide section level1 fragile">
+<h1 class="fragile">Including Stata tables</h1>
+<pre><code>```{s/}
+    qui reg price headroom
+    est sto reg1
+
+    qui regress price headroom trunk
+    est sto reg2
+
+    qui regress price headroom trunk foreign
+    est sto reg3
+
+    esttab reg1 reg2 reg3, ///
+        replace ///
+        label se ///
+        nomtitles
+```</code></pre>
+</div>
+<div id="including-stata-tables-2" class="slide section level1 fragile">
+<h1 class="fragile">Including Stata tables</h1>
+<pre class='stata'>────────────────────────────────────────────────────────────────────
+                              (1)             (2)             (3)   
+────────────────────────────────────────────────────────────────────
+Headroom (in.)              399.2          -580.8          -519.7   
+                          (408.2)         (519.5)         (516.9)   
+
+Trunk space (.. ft.)                        292.8**         328.4** 
+                                          (102.8)         (104.7)   
+
+Car origin                                                 1128.8   
+                                                          (763.2)   
+
+Constant                   4970.3***       3875.9**        2866.9*  
+                         (1269.0)        (1270.0)        (1432.4)   
+────────────────────────────────────────────────────────────────────
+Observations                   74              74              74   
+────────────────────────────────────────────────────────────────────
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001
+</pre>
+</div>
+<div id="including-stata-tables-3" class="slide section level1 fragile">
+<h1 class="fragile">Including Stata tables</h1>
+<h3 id="exercise-4">Exercise 4</h3>
+<ol style="list-style-type: decimal">
+<li>Go to <code>Stata markdown template.stmd</code></li>
+<li>Inside a Stata code block, run a few simple regressions on the
+loaded data</li>
+<li>Use <code>esttab</code> to output the regression results</li>
+<li>Save the markdown file</li>
+<li>If you have a PDF open, close it</li>
+<li>Run <code>Master.do</code></li>
+</ol>
+</div>
+<div id="including-code-inline" class="slide section level1">
+<h1>Including code inline</h1>
+<ul>
+<li>Sometimes we want to reference numbers in our text</li>
+<li>If the numbers change for any reason, it’s better to have them
+automatically updated than review the whole presentation for
+adjustments</li>
+<li>Markdown lets you write code inline with your text</li>
+</ul>
+</div>
+<div id="including-code-inline-1" class="slide section level1">
+<h1>Including code inline</h1>
+<ul>
+<li>Writing</li>
+</ul>
+<pre><code>Today is `s c(current_date)`.</code></pre>
+<ul>
+<li>Will result in</li>
+</ul>
+<p>Today is 15 Dec 2023.</p>
+</div>
+<div id="including-code-inline-2" class="slide section level1 fragile">
+<h1 class="fragile">Including code inline</h1>
+<h3 id="exercise-5">Exercise 5</h3>
+<p>Using inline Stata code, try to include the following items to your
+current markdown file:</p>
+<ul>
+<li>The sample includes 74 different car models</li>
+<li>22 are foreign models, and 52 are domestic</li>
+</ul>
+</div>
+<div id="including-code-inline-3" class="slide section level1 fragile">
+<h1 class="fragile">Including code inline</h1>
+<pre><code>```{s}
+qui count
+local models `r(N)&#39;
+
+qui count if foreign == 1
+local foreign `r(N)&#39;
+
+qui count if foreign == 0
+local domestic `r(N)&#39;
+```</code></pre>
+</div>
+<div id="including-code-inline-4" class="slide section level1 fragile">
+<h1 class="fragile">Including code inline</h1>
+<pre><code>+ The sample includes `s `models&#39;` different car
+models
++ `s `foreign&#39;` are foreign models, and `s `domestic&#39;`
+are domestic</code></pre>
+<p>This results in:</p>
+<ul>
+<li>The sample includes 74 different car models</li>
+<li>22 are foreign models, and 52 are domestic</li>
+</ul>
+</div>
+<div id="including-code-inline-5" class="slide section level1 fragile">
+<h1 class="fragile">Including code inline</h1>
+<ul>
+<li>Inline code is particularly useful when you want to display a custom
+table</li>
+<li>You can create the table using markdown, and add the numbers to the
+right columns using locals</li>
+<li>However, to create these you need to specify the <code>strict</code>
+option when compiling</li>
+<li>And they will not necessarily render will in all different
+formats</li>
+</ul>
+</div>
+<div id="including-code-inline-6" class="slide section level1 fragile">
+<h1 class="fragile">Including code inline</h1>
+<ul>
+<li>Writing</li>
+</ul>
+<pre><code>| Car origin  | N obs        |
+|:------------|-------------:|
+| Domestic    |`s `domestic&#39;`|
+| Foreign     |`s `foreign&#39;` |</code></pre>
+<ul>
+<li>Will result in</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Car origin</th>
+<th align="right">N obs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domestic</td>
+<td align="right">52</td>
+</tr>
+<tr class="even">
+<td align="left">Foreign</td>
+<td align="right">22</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="annex-adding-a-title-to-your-document"
+class="slide section level1">
+<h1>Annex: Adding a title to your document</h1>
+<ul>
+<li>There are three pieces of metadata that you can easily add to your
+document: title, author and date</li>
+<li>You can do this by adding the following code to the beginning of
+your document:</li>
+</ul>
+<pre><code>% Document Title
+% Author
+% Date</code></pre>
+</div>
+<div id="annex-other-tools-for-dynamic-documents-in-stata"
+class="slide section level1">
+<h1>Annex: Other tools for dynamic documents in Stata</h1>
+<p><a
+href="http://repec.sowi.unibe.ch/stata/texdoc/"><strong>texdoc</strong></a></p>
+<ul>
+<li>Stata package created by Ben Jann</li>
+<li>Write LaTeX code instead of markdown</li>
+<li>The markdown file is not as easy to read</li>
+<li>But can be easier to format, if you know TeX well</li>
+<li>Debugging LaTeX errors can be hard</li>
+</ul>
+</div>
+<div id="annex-other-tools-for-dynamic-documents-in-stata-1"
+class="slide section level1">
+<h1>Annex: Other tools for dynamic documents in Stata</h1>
+<p><a href="http://stata.com/features/overview/markdown/"><strong>Stata
+Markdown</strong></a></p>
+<ul>
+<li>Tools built-in Stata 15 or newer versions</li>
+<li><code>dyndoc</code>: create Word or HTML files from Markdown</li>
+<li><code>putpdf</code>: create PDF files</li>
+<li>Syntax is different for different output formats</li>
+<li>Syntax is unique to these commands</li>
+<li>The markdown file is not as easy to read</li>
+</ul>
+</div>
+<div id="annex-other-tools-for-dynamic-documents-in-stata-2"
+class="slide section level1">
+<h1>Annex: Other tools for dynamic documents in Stata</h1>
+<ul>
+<li>E.F Haghish has a few different commands for dynamic documents in
+Stata.</li>
+<li><a
+href="https://www.stata.com/meeting/italy14/abstracts/materials/it14_haghish.pdf">This
+presentation</a> is great introduction to them</li>
+</ul>
+<p><a
+href="http://haghish.com/statistics/stata-blog/reproducible-research/markdoc.php"><strong>MarkDoc</strong></a></p>
+<ul>
+<li>Translates log files to Markdown, doc, LaTeX, HTML, epub and a
+number of other formats</li>
+</ul>
+<p><a
+href="http://github.com/haghish/weaver"><strong>weaver</strong></a></p>
+<ul>
+<li>Real-time preview of the document</li>
+</ul>
+</div>
+<div id="annex-other-resources" class="slide section level1">
+<h1>Annex: Other resources</h1>
+<ul>
+<li>This presentation was mostly based on <a
+href="https://data.princeton.edu/stata/markdown/markstat.pdf">German
+Rodriguez, 2017. “MARKSTAT: Stata module to support literate data
+analysis using Stata and Markdown,” Statistical Software Components
+S458401, Boston College Department of Economics, revised 08 May
+2018.</a></li>
+<li>The <a
+href="https://data.princeton.edu/stata/markdown"><code>markstat</code>
+website</a> contains a lot of material, examples and FAQs</li>
+</ul>
+</div>
+</div>
+</body>
+</html>
