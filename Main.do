@@ -44,15 +44,15 @@ Last modified: by Luis Eduardo San Martin on February 10 2021
 	if `paths' {
 
 		* Tell Stata where to find the relevant programs	
-		whereis pdflatex 			"C:\texlive\2023\bin\windows\pdflatex.exe"
+		whereis pdflatex 			"INSERT PATH HERE"
 									*example: "C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdflatex.exe"
 
-		whereis pandoc 				"C:\Users\luizaandrade\AppData\Local\Pandoc\pandoc.exe"
+		whereis pandoc 				"INSERT PATH HERE"
 									*example: "C:/WBG/pandoc-2.10.1/pandoc.exe"
 				
 		* Session folder
 		* Paste here the location of this session's materials
-		global	mdfolder	"C:\Users\luizaandrade\Documents\GitHub\stata-markdown"
+		global	mdfolder	"INSERT PATH HERE"
 							*example: "C:\Users\wb532468\OneDrive - WBG\Documents\stata-markdown-CE-session"
 	}
 
