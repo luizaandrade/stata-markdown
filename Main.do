@@ -15,7 +15,7 @@ Last modified: by Luis Eduardo San Martin on February 10 2021
 	PART 0: Select sections to run
 *******************************************************************************/
 
-	local packages		1
+	local packages		0
 	local paths			1
 	local document		1
 
@@ -44,16 +44,15 @@ Last modified: by Luis Eduardo San Martin on February 10 2021
 	if `paths' {
 
 		* Tell Stata where to find the relevant programs	
-		whereis pdflatex 			"INSERT PATH HERE"
-									* Example: "C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdflatex.exe"
-									* On Windows, make sure to include the .exe file extension
+		whereis pdflatex 			"C:\texlive\2023\bin\windows\pdflatex.exe"
+									*example: "C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdflatex.exe"
 
-		whereis pandoc 				"INSERT PATH HERE"
+		whereis pandoc 				"C:\Users\luizaandrade\AppData\Local\Pandoc\pandoc.exe"
 									*example: "C:/WBG/pandoc-2.10.1/pandoc.exe"
 				
 		* Session folder
 		* Paste here the location of this session's materials
-		global	mdfolder	"INSERT PATH HERE"
+		global	mdfolder	"C:\Users\luizaandrade\Documents\GitHub\stata-markdown"
 							*example: "C:\Users\wb532468\OneDrive - WBG\Documents\stata-markdown-CE-session"
 	}
 
@@ -67,7 +66,7 @@ Last modified: by Luis Eduardo San Martin on February 10 2021
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		markstat using "${mdfolder}/Presentation/markstat-presentation", beamer
+		markstat using "${mdfolder}/stata-markdown-template", pdf
 	
 	}
 	
